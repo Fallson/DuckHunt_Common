@@ -20,7 +20,8 @@
 @property (nonatomic, retain)DHLabel* highest_score_label;
 @property (nonatomic, retain)DHLabel* score_label;
 @property (nonatomic, retain)DHLabel* left_duck_label;
-@property (nonatomic, retain)DHLabel* hit_count_label;
+//@property (nonatomic, retain)DHLabel* hit_count_label;
+@property (nonatomic, retain)DHLabel* lvl_label;
 @property (nonatomic, retain)NSMutableArray* left_duck_sprites;
 @end
 
@@ -28,12 +29,14 @@
 @synthesize highest_score = _highest_score;
 @synthesize score = _score;
 @synthesize left_duck = _left_duck;
-@synthesize hit_count = _hit_count;
+//@synthesize hit_count = _hit_count;
+@synthesize lvl = _lvl;
 
 @synthesize highest_score_label = _highest_score_label;
 @synthesize score_label = _score_label;
 @synthesize left_duck_label = _left_duck_label;
-@synthesize hit_count_label = _hit_count_label;
+//@synthesize hit_count_label = _hit_count_label;
+@synthesize lvl_label = _lvl_label;
 @synthesize left_duck_sprites = _left_duck_sprites;
 
 -(id) initWithWinRect: (CGRect)rect
@@ -45,32 +48,41 @@
         self.highest_score = 0;
         self.score = 0;
         self.left_duck = 0;
-        self.hit_count = 0;
+        //self.hit_count = 0;
+        self.lvl = 0;
 
-        NSString* highest_score_str = [NSString stringWithFormat:@"highest score: %d", self.highest_score];
+        NSString* highest_score_str = [NSString stringWithFormat:@"Highest score: %d", self.highest_score];
         self.highest_score_label = [DHLabel labelWithString:highest_score_str fontName:DHLABEL_FONT fontSize:24*[[DHGameData sharedDHGameData] getScale]];
         self.highest_score_label.color=[DHLabel GetColor];
         self.highest_score_label.position = ccp(_winRect.origin.x + 10, _winRect.origin.y + 0.5*_winRect.size.height);
         [self.highest_score_label setAnchorPoint: ccp(0, 0.5f)];
         
-        NSString* score_str = [NSString stringWithFormat:@"current score: %d", self.score];
+        NSString* score_str = [NSString stringWithFormat:@"Current score: %d", self.score];
         self.score_label = [DHLabel labelWithString:score_str fontName:DHLABEL_FONT fontSize:24*[[DHGameData sharedDHGameData] getScale]];
         self.score_label.color=[DHLabel GetColor];
         self.score_label.position = ccp(_winRect.origin.x + 10, _winRect.origin.y);
         [self.score_label setAnchorPoint: ccp(0, 0.5f)];
         
 
-        NSString* left_duck_str = [NSString stringWithFormat:@"left duck:"];
+        NSString* left_duck_str = [NSString stringWithFormat:@"Left duck:"];
         self.left_duck_label = [DHLabel labelWithString:left_duck_str fontName:DHLABEL_FONT fontSize:24*[[DHGameData sharedDHGameData] getScale]];
         self.left_duck_label.color=[DHLabel GetColor];
         self.left_duck_label.position = ccp(_winRect.origin.x + 0.75*_winRect.size.width, _winRect.origin.y + 0.5*_winRect.size.height);
         [self.left_duck_label setAnchorPoint: ccp(0, 0.5f)];
         
+        NSString* lvl_str = [NSString stringWithFormat:@"Game level:  %d", self.lvl];
+        self.lvl_label = [DHLabel labelWithString:lvl_str fontName:DHLABEL_FONT fontSize:24*[[DHGameData sharedDHGameData] getScale]];
+        self.lvl_label.color=[DHLabel GetColor];
+        self.lvl_label.position = ccp(_winRect.origin.x + 0.75*_winRect.size.width, _winRect.origin.y);
+        [self.lvl_label setAnchorPoint: ccp(0, 0.5f)];
+        
+        /*
         NSString* hit_count_str = [NSString stringWithFormat:@"hit count:   %d", self.hit_count];
         self.hit_count_label = [DHLabel labelWithString:hit_count_str fontName:DHLABEL_FONT fontSize:24*[[DHGameData sharedDHGameData] getScale]];
         self.hit_count_label.color=[DHLabel GetColor];
         self.hit_count_label.position = ccp(_winRect.origin.x + 0.75*_winRect.size.width, _winRect.origin.y);
         [self.hit_count_label setAnchorPoint: ccp(0, 0.5f)];
+        */
         
         [self initLeftDuckSprites: ccp(_winRect.origin.x + 0.75*_winRect.size.width + self.left_duck_label.contentSize.width,
                                        _winRect.origin.y + 0.5*_winRect.size.height)];
@@ -97,7 +109,8 @@
     [layer addChild:self.highest_score_label];
     [layer addChild:self.score_label];
     [layer addChild:self.left_duck_label];
-    [layer addChild:self.hit_count_label];
+    //[layer addChild:self.hit_count_label];
+    [layer addChild:self.lvl_label];
     
     for(CCSprite* sprite1 in self.left_duck_sprites)
     {
@@ -107,18 +120,20 @@
 
 -(void)update:(ccTime)dt
 {
-    NSString* highest_score_str = [NSString stringWithFormat:@"highest score: %d", self.highest_score];
+    NSString* highest_score_str = [NSString stringWithFormat:@"Highest score: %d", self.highest_score];
     [self.highest_score_label setString:highest_score_str];
     
-    NSString* score_str = [NSString stringWithFormat:@"current score: %d", self.score];
+    NSString* score_str = [NSString stringWithFormat:@"Current score: %d", self.score];
     [self.score_label setString:score_str];
     
-    NSString* left_duck_str = [NSString stringWithFormat:@"left duck:"];
+    NSString* left_duck_str = [NSString stringWithFormat:@"Left duck:"];
     [self.left_duck_label setString:left_duck_str];
     [self updateLeftDuckSprites];
     
-    NSString* hit_count_str = [NSString stringWithFormat:@"hit count:   %d", self.hit_count];
-    [self.hit_count_label setString:hit_count_str];
+    //NSString* hit_count_str = [NSString stringWithFormat:@"hit count:   %d", self.hit_count];
+    //[self.hit_count_label setString:hit_count_str];
+    NSString* lvl_str = [NSString stringWithFormat:@"Game level:  %d", self.lvl];
+    [self.lvl_label setString:lvl_str];
 }
 
 -(void)updateLeftDuckSprites

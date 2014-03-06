@@ -162,18 +162,23 @@
     if (selectedServiceType == SLServiceTypeFacebook)
     {
         serviceName = @"Facebook";
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Account"
+                                                            message:[NSString stringWithFormat:@"Please go to the device settings and add a %@ account in order to share through that service",serviceName]delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [alertView show];
     }
     else if (selectedServiceType == SLServiceTypeSinaWeibo)
     {
-        serviceName = @"Sina Weibo";
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"微博账号"
+                                                            message:[NSString stringWithFormat:@"赶紧前往\"设置\"->\"新浪微博\"添加账号"]delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [alertView show];
     }
     else if (selectedServiceType == SLServiceTypeTwitter)
     {
         serviceName = @"Twitter";
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Account"
+                                                            message:[NSString stringWithFormat:@"Please go to the device settings and add a %@ account in order to share through that service",serviceName]delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [alertView show];
     }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Account"
-                              message:[NSString stringWithFormat:@"Please go to the device settings and add a %@ account in order to share through that service",serviceName]delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-    [alertView show];
 }
 
 -(NSString*)getFullPath:(NSString*)path
@@ -193,7 +198,7 @@
 {
     if( SYSTEM_VERSION_LESS_THAN(@"6.0") )
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Low Version"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry, Your ios version is too low!"
                                                             message:[NSString stringWithFormat:@"This function can't work below ios 6.0"]delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [alertView show];
         
@@ -210,9 +215,9 @@
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
         if( cur_game_mode == TIME_MODE )
-            [tweetSheet setInitialText: [NSString stringWithFormat:@"Great work in game DuckHunt, you got %d in time mode! https://itunes.apple.com/us/app/duckhunt/id725538960?ls=1&mt=8", cur_game_score]];
+            [tweetSheet setInitialText: [NSString stringWithFormat:@"Great work in DuckHunt, you got %d! And you can get funny games from http://fpsstudio.azurewebsites.net/", cur_game_score]];
         else if( cur_game_mode == FREE_MODE )
-            [tweetSheet setInitialText: [NSString stringWithFormat:@"Great work in game DuckHunt, you got %d in free mode! https://itunes.apple.com/us/app/duckhunt/id725538960?ls=1&mt=8", cur_game_score]];
+            [tweetSheet setInitialText: [NSString stringWithFormat:@"Great work in DuckHunt, you got %d! And you can get funny games from http://fpsstudio.azurewebsites.net/", cur_game_score]];
      
 //        NSURL* url = [NSURL URLWithString:@"https://itunes.apple.com/us/app/duckhunt/id725538960?ls=1&mt=8"];
 //        BOOL ret = [tweetSheet addURL: url];
@@ -236,7 +241,7 @@
 {
     if( SYSTEM_VERSION_LESS_THAN(@"6.0") )
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Low Version"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sorry, Your ios version is too low!"
                                                             message:[NSString stringWithFormat:@"This function can't work below ios 6.0"]delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [alertView show];
         
@@ -253,9 +258,9 @@
         SLComposeViewController *facebookSheet = [SLComposeViewController
                                                   composeViewControllerForServiceType:SLServiceTypeFacebook];
         if( cur_game_mode == TIME_MODE )
-            [facebookSheet setInitialText: [NSString stringWithFormat:@"Great work in game DuckHunt, you got %d in time mode! https://itunes.apple.com/us/app/duckhunt/id725538960?ls=1&mt=8", cur_game_score]];
+            [facebookSheet setInitialText: [NSString stringWithFormat:@"Great work in DuckHunt, you got %d! And you can get funny games from http://fpsstudio.azurewebsites.net/", cur_game_score]];
         else if( cur_game_mode == FREE_MODE )
-            [facebookSheet setInitialText: [NSString stringWithFormat:@"Great work in game DuckHunt, you got %d in free mode! https://itunes.apple.com/us/app/duckhunt/id725538960?ls=1&mt=8", cur_game_score]];
+            [facebookSheet setInitialText: [NSString stringWithFormat:@"Great work in DuckHunt, you got %d! And you can get funny games from http://fpsstudio.azurewebsites.net/", cur_game_score]];
         
         //        NSURL* url = [NSURL URLWithString:@"https://itunes.apple.com/us/app/duckhunt/id725538960?ls=1&mt=8"];
         //        BOOL ret = [tweetSheet addURL: url];
@@ -279,8 +284,8 @@
 {
     if( SYSTEM_VERSION_LESS_THAN(@"6.0") )
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Low Version"
-                                                            message:[NSString stringWithFormat:@"This function can't work below ios 6.0"]delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"你的ios版本太低了，赶紧升级吧！"
+                                                            message:[NSString stringWithFormat:@"如标题"]delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [alertView show];
         
         [self ReturnMenuPressed:nil];
@@ -296,9 +301,9 @@
         SLComposeViewController *weiboSheet = [SLComposeViewController
                                                   composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
         if( cur_game_mode == TIME_MODE )
-            [weiboSheet setInitialText: [NSString stringWithFormat:@"恭喜你在游戏-打鸭子中获得%d的高分! https://itunes.apple.com/us/app/duckhunt/id725538960?ls=1&mt=8", cur_game_score]];
+            [weiboSheet setInitialText: [NSString stringWithFormat:@"牛逼，你在游戏-打鸭子中获得%d的高分! 从以下网址获取其他好玩游戏 http://fpsstudio.azurewebsites.net/", cur_game_score]];
         else if( cur_game_mode == FREE_MODE )
-            [weiboSheet setInitialText: [NSString stringWithFormat:@"恭喜你在游戏-打鸭子中获得%d的高分! https://itunes.apple.com/us/app/duckhunt/id725538960?ls=1&mt=8", cur_game_score]];
+            [weiboSheet setInitialText: [NSString stringWithFormat:@"牛逼，你在游戏-打鸭子中获得%d的高分! 从以下网址获取其他好玩游戏 http://fpsstudio.azurewebsites.net/", cur_game_score]];
         //[weiboSheet addURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/duckhunt/id725538960?ls=1&mt=8"]];
         
         NSString* fullpath = [self getFullPath:@"Icon.png"];

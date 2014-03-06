@@ -46,14 +46,17 @@
     DHFreeModePannelObj* _pannel;
     CGRect            _pannelRect;
     
+    /*
     DHDogObj*      _dogObj;
     CGRect         _dogRect;
-    
+    */
+     
     DHIntroPannelObj* _introObj;
     CGRect            _introRect;
     
     ccTime         _nextDuckTime;
     ccTime         _gameTime;
+    int            _gameLvl;
     
     int            _hit_count;
     int            _miss_count;
@@ -95,7 +98,7 @@
         [DHGameData sharedDHGameData].cur_game_mode = FREE_MODE;
         
         [self initBG];
-        [self initDog];
+        //[self initDog];
         [self initIntro];
         [self initDucks];
         [self initPannel];
@@ -103,6 +106,7 @@
         
         _nextDuckTime = 0;
         _gameTime = 0;
+        _gameLvl = 0;
         
         _hit_count = 0;
         _game_hit.duck_hit = 0;
@@ -135,6 +139,7 @@
     [_bgObj addtoScene: self];
 }
 
+/*
 -(void)initDog
 {
     _dogRect = _bgRect;
@@ -143,7 +148,8 @@
     _dogObj = [[DHDogObj alloc] initWithWinRect:_dogRect];
     [_dogObj addtoScene: self];
 }
-
+*/
+ 
 -(void)initIntro
 {
     _introRect = _bgRect;
@@ -199,27 +205,27 @@
 -(void) update:(ccTime)dt
 {
     [self updateBG:dt];
-    [self updateDog:dt];
+    //[self updateDog:dt];
     [self updateIntro:dt];
     [self updatePannel:dt];
     
-    if( _dogObj.dog_state == DOG_DISAPPEAR )
+    if( _gameTime > 3 )
     {
         [_introObj removeFromScene:self];
-        
-        _gameTime += dt;
-        [self updateDucks:dt];
-
-        if(FREEMODE_TOTAL_DUCK <= _miss_count)
-        {
-            [self game_over];
-        }
-        
-        if( _cur_chp == _next_chp )
-        {
-            _next_chp += FREEMODE_CHAPTER_STEP;
-            [self game_continue];
-        }
+    }
+    
+    _gameTime += dt;
+    [self updateDucks:dt];
+    
+    if(FREEMODE_TOTAL_DUCK <= _miss_count)
+    {
+        [self game_over];
+    }
+    
+    if( _cur_chp == _next_chp && !_gameover )
+    {
+        _next_chp += FREEMODE_CHAPTER_STEP;
+        [self game_continue];
     }
 }
 
@@ -228,11 +234,13 @@
     [_bgObj update:dt];
 }
 
+/*
 -(void) updateDog:(ccTime)dt
 {
     [_dogObj update:dt];
 }
-
+*/
+ 
 -(void) updateIntro:(ccTime)dt
 {
     [_introObj update:dt];
@@ -288,6 +296,7 @@
         else
         {
             _cur_chp++;
+            _gameLvl++;
             if( _cur_chp >= CHAPTER_MAX )
                 new_ducks = [[DHGameChapter sharedDHGameChapter] getChapterDucks:CHAPTER_MAX-1 andWinRect:_duckRect];
             else
@@ -308,7 +317,8 @@
 -(void)updatePannel:(ccTime)dt
 {
     [_pannel setLeft_duck:(FREEMODE_TOTAL_DUCK-_miss_count)<0?0:(FREEMODE_TOTAL_DUCK-_miss_count)];
-    [_pannel setHit_count:_hit_count];
+    //[_pannel setHit_count:_hit_count];
+    [_pannel setLvl:_gameLvl];
     [_pannel setScore:_gameScore];
     [_pannel setHighest_score:[[DHGameData sharedDHGameData] getHighestScore:FREE_MODE]];
     [_pannel update:dt];
@@ -354,7 +364,7 @@
 }
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-    if( [DHGameData sharedDHGameData].gameMusic == 1 )
+    if( [DHGameData sharedDHGameData].bgMusic == 1 )
         [[SimpleAudioEngine sharedEngine] playEffect:@"shoot.wav"];
     
 	CGPoint location = [self convertTouchToNodeSpace: touch];
@@ -411,7 +421,7 @@
 	[_bgObj release];
     [_ducks release];
     [_pannel release];
-    [_dogObj release];
+    //[_dogObj release];
     [_introObj release];
     
 	// don't forget to call "super dealloc"

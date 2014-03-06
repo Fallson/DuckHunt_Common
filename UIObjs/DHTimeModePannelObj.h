@@ -19,4 +19,5 @@
 @property (nonatomic, assign)int score;
 @property (nonatomic, assign)ccTime left_time;
 @property (nonatomic, assign)int hit_count;
+@property (nonatomic, assign)int lvl;
 @end

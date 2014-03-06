@@ -118,7 +118,7 @@ static DHGameData *_sharedDHGameData=nil;
     }
     [s insertObject:[NSNumber numberWithInt:sc] atIndex:i];
     
-    while( [s count] > 5 )
+    while( [s count] > 10 )
     {
         [s removeLastObject];
     }
@@ -158,7 +158,7 @@ static DHGameData *_sharedDHGameData=nil;
     
     if( [settings objectForKey:@"gameMusic"] == nil )
     {
-        self.gameMusic = 1;
+        self.gameMusic = 0;
     }
     else
     {

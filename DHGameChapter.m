@@ -70,219 +70,97 @@ static DHGameChapter *_sharedDHGameChapter=nil;
 {
     CGRect rect = [rectValue CGRectValue];
     
-    if( [DHGameData sharedDHGameData].cur_game_mode == TIME_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_NORMAL, DUCK_NORMAL};
-        float speeds[] = {1.0, 1.0, 1.0};
-        
-        CREATE_DUCKS
-    }
-    else if( [DHGameData sharedDHGameData].cur_game_mode == FREE_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_NORMAL};
-        float speeds[] = {1.0};
-        
-        CREATE_DUCKS
-    }
-    else
-    {
-        
-    }
+    enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_NORMAL, DUCK_NORMAL};
+    float speeds[] = {1.0, 1.0, 1.0};
+    
+    CREATE_DUCKS
 }
 
 -(void)setDucks_Chapter2:(NSMutableArray*)ducks andWinRect:(NSValue*)rectValue
 {
     CGRect rect = [rectValue CGRectValue];
     
-    if( [DHGameData sharedDHGameData].cur_game_mode == TIME_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_NORMAL, DUCK_SIN,
-                                    DUCK_ELLIPSE};
-        float speeds[] = {1.0, 1.0, 1.2, 1.0};
-        
-        CREATE_DUCKS
-    }
-    else if( [DHGameData sharedDHGameData].cur_game_mode == FREE_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_NORMAL};
-        float speeds[] = {1.0, 1.2};
-        
-        CREATE_DUCKS
-    }
-    else
-    {
-    }
+
+    enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_NORMAL, DUCK_SIN,
+        DUCK_ELLIPSE};
+    float speeds[] = {1.0, 1.0, 1.2, 1.0};
+    
+    CREATE_DUCKS
 }
 
 -(void)setDucks_Chapter3:(NSMutableArray*)ducks andWinRect:(NSValue*)rectValue
 {
     CGRect rect = [rectValue CGRectValue];
     
-    if( [DHGameData sharedDHGameData].cur_game_mode == TIME_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_EIGHT};
-        float speeds[] = {1.0, 1.0, 1.2, 1.2, 1.0};
-        
-        CREATE_DUCKS
-    }
-    else if( [DHGameData sharedDHGameData].cur_game_mode == FREE_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_NORMAL};
-        float speeds[] = {1.0, 1.2, 1.0};
-        
-        CREATE_DUCKS
-    }
-    else
-    {
-    }
+    enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_SIN,
+        DUCK_NORMAL, DUCK_EIGHT};
+    float speeds[] = {1.0, 1.0, 1.2, 1.2, 1.0};
+    
+    CREATE_DUCKS
 }
 
 -(void)setDucks_Chapter4:(NSMutableArray*)ducks andWinRect:(NSValue*)rectValue
 {
     CGRect rect = [rectValue CGRectValue];
     
-    if( [DHGameData sharedDHGameData].cur_game_mode == TIME_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_EIGHT};
-        float speeds[] = {1.0, 1.2, 1.5, 1.5, 1.2, 1.0};
-        CREATE_DUCKS
-    }
-    else if( [DHGameData sharedDHGameData].cur_game_mode == FREE_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL};
-        float speeds[] = {1.0, 1.2, 1.2, 1.0};
-        
-        CREATE_DUCKS
-    }
-    else
-    {
-    }
+    enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
+        DUCK_NORMAL, DUCK_EIGHT};
+    float speeds[] = {1.0, 1.2, 1.5, 1.5, 1.2, 1.0};
+    CREATE_DUCKS
 }
 
 -(void)setDucks_Chapter5:(NSMutableArray*)ducks andWinRect:(NSValue*)rectValue
 {
     CGRect rect = [rectValue CGRectValue];
     
-    if( [DHGameData sharedDHGameData].cur_game_mode == TIME_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_EIGHT};
-        float speeds[] = {1.2, 1.5, 1.8, 1.8, 1.5, 1.2};
-        CREATE_DUCKS
-    }
-    else if( [DHGameData sharedDHGameData].cur_game_mode == FREE_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL};
-        float speeds[] = {1.2, 1.5, 1.5, 1.2};
-        
-        CREATE_DUCKS
-    }
-    else
-    {
-    }
+    enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
+        DUCK_NORMAL, DUCK_EIGHT};
+    float speeds[] = {1.2, 1.5, 1.8, 1.8, 1.5, 1.2};
+    CREATE_DUCKS
 }
 
 -(void)setDucks_Chapter6:(NSMutableArray*)ducks andWinRect:(NSValue*)rectValue
 {
     CGRect rect = [rectValue CGRectValue];
     
-    if( [DHGameData sharedDHGameData].cur_game_mode == TIME_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_NORMAL, DUCK_EIGHT};
-        float speeds[] = {1.5, 1.8, 1.8, 1.5, 1.5, 1.8, 1.5};
-        
-        CREATE_DUCKS
-    }
-    else if( [DHGameData sharedDHGameData].cur_game_mode == FREE_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL};
-        float speeds[] = {1.2, 1.5, 1.8, 1.5, 1.2};
-        
-        CREATE_DUCKS
-    }
-    else
-    {
-    }
+    enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
+        DUCK_NORMAL, DUCK_NORMAL, DUCK_EIGHT};
+    float speeds[] = {1.5, 1.8, 1.8, 1.5, 1.5, 1.8, 1.5};
+    
+    CREATE_DUCKS
 }
 
 -(void)setDucks_Chapter7:(NSMutableArray*)ducks andWinRect:(NSValue*)rectValue
 {
     CGRect rect = [rectValue CGRectValue];
-    
-    if( [DHGameData sharedDHGameData].cur_game_mode == TIME_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_NORMAL, DUCK_EIGHT, DUCK_SIN};
-        float speeds[] = {1.5, 1.8, 2.0, 1.8, 2.0, 1.8, 1.5, 1.8};
-        CREATE_DUCKS
-    }
-    else if( [DHGameData sharedDHGameData].cur_game_mode == FREE_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_EIGHT};
-        float speeds[] = {1.2, 1.5, 1.8, 1.8, 1.5, 1.2};
-        
-        CREATE_DUCKS
-    }
-    else
-    {
-    }
+
+    enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
+        DUCK_NORMAL, DUCK_NORMAL, DUCK_EIGHT, DUCK_SIN};
+    float speeds[] = {1.5, 1.8, 2.0, 1.8, 2.0, 1.8, 1.5, 1.8};
+    CREATE_DUCKS
 }
 
 -(void)setDucks_Chapter8:(NSMutableArray*)ducks andWinRect:(NSValue*)rectValue
 {
     CGRect rect = [rectValue CGRectValue];
     
-    if( [DHGameData sharedDHGameData].cur_game_mode == TIME_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_NORMAL, DUCK_EIGHT, DUCK_SIN};
-        float speeds[] = {1.8, 2.0, 1.8, 2.0, 2.0, 2.0, 2.0, 2.0};
-        CREATE_DUCKS
-    }
-    else if( [DHGameData sharedDHGameData].cur_game_mode == FREE_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_EIGHT};
-        float speeds[] = {1.8, 1.8, 1.8, 1.8, 1.8, 1.8};
-        
-        CREATE_DUCKS
-    }
-    else
-    {
-    }
+    enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
+        DUCK_NORMAL, DUCK_NORMAL, DUCK_EIGHT, DUCK_SIN};
+    float speeds[] = {1.8, 2.0, 1.8, 2.0, 2.0, 2.0, 2.0, 2.0};
+    CREATE_DUCKS
 }
 
 -(void)setDucks_Chapter9:(NSMutableArray*)ducks andWinRect:(NSValue*)rectValue
 {
     CGRect rect = [rectValue CGRectValue];
     
-    if( [DHGameData sharedDHGameData].cur_game_mode == TIME_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_NORMAL, DUCK_EIGHT, DUCK_SIN,
-                                    DUCK_ELLIPSE};
-        float speeds[] = {2.0, 2.0, 2.2, 2.5, 2.2, 2.0, 2.2, 2.2, 2.0};
-        
-        CREATE_DUCKS
-    }
-    else if( [DHGameData sharedDHGameData].cur_game_mode == FREE_MODE )
-    {
-        enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
-                                    DUCK_NORMAL, DUCK_EIGHT, DUCK_CIRCLE};
-        float speeds[] = {1.8, 1.8, 1.8, 2.0, 2.0, 1.8, 2.0};
-        
-        CREATE_DUCKS
-    }
-    else
-    {
-    }
+
+    enum PILOT_TYPE ptypes[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
+        DUCK_NORMAL, DUCK_NORMAL, DUCK_EIGHT, DUCK_SIN,
+        DUCK_ELLIPSE};
+    float speeds[] = {2.0, 2.0, 2.2, 2.5, 2.2, 2.0, 2.2, 2.2, 2.0};
+    
+    CREATE_DUCKS
 }
 
 #define LAST_CHP_MAX_DUCK_NUM 20
@@ -296,9 +174,9 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     for( int i = 0; i < duck_num; i++ )
     {
         ptypes[i] = DUCK_NORMAL;
-        speeds[i] = 2.0 + (float)(arc4random()%10)/(float)10.0;
-        if( speeds[i] > 3.0 )
-            speeds[i] = 3.0;
+        speeds[i] = 2.5 + (float)(arc4random()%10)/(float)10.0;
+        if( speeds[i] > 4.0 )
+            speeds[i] = 4.0;
     }
     
     for( int i = 0; i < duck_num; i++ )
@@ -312,6 +190,25 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     if( lvl < CHAPTER1 || lvl >= CHAPTER_MAX )
         return nil;
     
+    NSMutableArray* ducks = [NSMutableArray array];
+    
+    enum PILOT_TYPE ptypes[LAST_CHP_MAX_DUCK_NUM];
+    float speeds[LAST_CHP_MAX_DUCK_NUM];
+    int duck_num = (arc4random()%(2+lvl) + 8);
+    for( int i = 0; i < duck_num; i++ )
+    {
+        ptypes[i] = DUCK_NORMAL;
+        speeds[i] = 3.0 + (float)(arc4random()%(2+lvl))/(float)4.0;
+    }
+    
+    for( int i = 0; i < duck_num; i++ )
+    {
+        CREATE_DUCKS_IN_LOOP
+    }
+    
+    return ducks;
+    
+#if 0
     SEL funs[] = {
         @selector(setDucks_Chapter1:andWinRect:),
         @selector(setDucks_Chapter2:andWinRect:),
@@ -329,6 +226,8 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     [self performSelector:funs[(int)lvl] withObject:ducks withObject:rectValue];
     
     return ducks;
+#endif
+    
 }
 
 #define FUNNY_CHP_DUCK_NUM 20
@@ -433,7 +332,7 @@ static DHGameChapter *_sharedDHGameChapter=nil;
 
     enum DUCK_TYPE dtypes[4]={BLACK_DUCK,BLUE_DUCK,RED_DUCK,PARROT_DUCK};
     enum PILOT_TYPE ptypes[4]={DUCK_SIN,DUCK_SIN,DUCK_SIN,DUCK_SIN};
-    float speeds[4]={1.0,1.5,1.5,1.0};
+    float speeds[4]={1.0,1.5,1.5,1.5};
 
     CREATE_DUCKS2
     

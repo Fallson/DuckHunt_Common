@@ -57,15 +57,16 @@
         CCMenuItem *menuitem_freemode = [CCMenuItemImage
                                          itemWithNormalImage:@"MenuItem.png" selectedImage:@"MenuItem_pressed.png"
                                          target:self selector:@selector(FreeModeMenuPressed:)];
-        menuitem_freemode.position = ccp(ori.x + sz.width*0.2, ori.y + sz.height*0.8);
-        menuitem_freemode.scale *= CC_CONTENT_SCALE_FACTOR()*[[DHGameData sharedDHGameData] getScale];
-        NSString* freemode_str = [NSString stringWithFormat:@"Free Mode"];
+        menuitem_freemode.position = ccp(ori.x + sz.width*0.3, ori.y + sz.height*0.7);
+        menuitem_freemode.scale *= CC_CONTENT_SCALE_FACTOR()*[[DHGameData sharedDHGameData] getScale]*1.2;
+        NSString* freemode_str = [NSString stringWithFormat:@"Play Go!"];
         self.freemode_label = [DHLabel labelWithString:freemode_str fontName:DHLABEL_FONT fontSize:20*[[DHGameData sharedDHGameData] getScale]];
         self.freemode_label.color=ccBLUE;
         self.freemode_label.position = menuitem_freemode.position;
         [self.freemode_label setAnchorPoint: ccp(0.5f, 0.5f)];
         
-        
+ 
+#if 0
         CCMenuItem *menuitem_timemode = [CCMenuItemImage
                                          itemWithNormalImage:@"MenuItem.png" selectedImage:@"MenuItem_pressed.png"
                                          target:self selector:@selector(TimeModeMenuPressed:)];
@@ -76,11 +77,12 @@
         self.timemode_label.color=ccBLUE;
         self.timemode_label.position = menuitem_timemode.position;
         [self.timemode_label setAnchorPoint: ccp(0.5f, 0.5f)];
+#endif
         
         CCMenuItem *menuitem_option = [CCMenuItemImage
                                        itemWithNormalImage:@"MenuItem.png" selectedImage:@"MenuItem_pressed.png"
                                        target:self selector:@selector(OptionMenuPressed:)];
-        menuitem_option.position = ccp(ori.x + sz.width*0.6, ori.y + sz.height*0.6);
+        menuitem_option.position = ccp(ori.x + sz.width*0.5, ori.y + sz.height*0.55);
         menuitem_option.scale *= CC_CONTENT_SCALE_FACTOR()*[[DHGameData sharedDHGameData] getScale];
         NSString* option_str = [NSString stringWithFormat:@"Game Option"];
         self.option_label = [DHLabel labelWithString:option_str fontName:DHLABEL_FONT fontSize:20*[[DHGameData sharedDHGameData] getScale]];
@@ -91,7 +93,7 @@
         CCMenuItem *menuitem_scorelist = [CCMenuItemImage
                                           itemWithNormalImage:@"MenuItem.png" selectedImage:@"MenuItem_pressed.png"
                                           target:self selector:@selector(ScoreListMenuPressed:)];
-        menuitem_scorelist.position = ccp(ori.x + sz.width*0.8, ori.y + sz.height*0.8);
+        menuitem_scorelist.position = ccp(ori.x + sz.width*0.7, ori.y + sz.height*0.7);
         menuitem_scorelist.scale *= CC_CONTENT_SCALE_FACTOR()*[[DHGameData sharedDHGameData] getScale];
         NSString* scorelist_str = [NSString stringWithFormat:@"Score List"];
         self.scorelist_label = [DHLabel labelWithString:scorelist_str fontName:DHLABEL_FONT fontSize:20*[[DHGameData sharedDHGameData] getScale]];
@@ -99,7 +101,7 @@
         self.scorelist_label.position = menuitem_scorelist.position;
         [self.scorelist_label setAnchorPoint: ccp(0.5f, 0.5f)];
         
-        _main_menu = [CCMenu menuWithItems:menuitem_freemode, menuitem_timemode, menuitem_option, menuitem_scorelist, nil];
+        _main_menu = [CCMenu menuWithItems:menuitem_freemode, /*menuitem_timemode,*/ menuitem_option, menuitem_scorelist, nil];
         _main_menu.position = CGPointZero;
 	}
 	return self;
@@ -109,7 +111,7 @@
 {
     [layer addChild:self.main_menu];
     [layer addChild:self.freemode_label];
-    [layer addChild:self.timemode_label];
+    //[layer addChild:self.timemode_label];
     [layer addChild:self.option_label];
     [layer addChild:self.scorelist_label];
 }
