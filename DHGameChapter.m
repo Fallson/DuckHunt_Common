@@ -187,6 +187,9 @@ static DHGameChapter *_sharedDHGameChapter=nil;
 
 -(NSMutableArray*)getChapterDucks:(enum CHAPTER_LVL) lvl andWinRect:(CGRect)rect
 {
+    static enum PILOT_TYPE ptypes_candidates[] = {DUCK_EIGHT, DUCK_CIRCLE, DUCK_ELLIPSE, DUCK_SIN,
+        DUCK_NORMAL};
+    
     if( lvl < CHAPTER1 || lvl >= CHAPTER_MAX )
         return nil;
     
@@ -194,11 +197,11 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     
     enum PILOT_TYPE ptypes[LAST_CHP_MAX_DUCK_NUM];
     float speeds[LAST_CHP_MAX_DUCK_NUM];
-    int duck_num = (arc4random()%(2+lvl) + 8);
+    int duck_num = (arc4random()%(2+lvl) + 6);
     for( int i = 0; i < duck_num; i++ )
     {
-        ptypes[i] = DUCK_NORMAL;
-        speeds[i] = 3.0 + (float)(arc4random()%(2+lvl))/(float)4.0;
+        ptypes[i] = ptypes_candidates[arc4random()%(sizeof(ptypes_candidates)/sizeof(enum PILOT_TYPE))];
+        speeds[i] = 2.5 + (float)(arc4random()%(2+lvl))/(float)4.0;
     }
     
     for( int i = 0; i < duck_num; i++ )

@@ -209,7 +209,7 @@
     [self updateIntro:dt];
     [self updatePannel:dt];
     
-    if( _gameTime > 3 )
+    if( _gameTime > 2 )
     {
         [_introObj removeFromScene:self];
     }

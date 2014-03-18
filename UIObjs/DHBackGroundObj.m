@@ -97,7 +97,8 @@
         self.smoke_spriteSheet.zOrder = BG_SMOKE_Z;
         
         //add ducks
-        _needDuck = needDuck;
+        //_needDuck = needDuck;
+        _needDuck = false;
         if( _needDuck )
         {
             _duckRect = _winRect;
