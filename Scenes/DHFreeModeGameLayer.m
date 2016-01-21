@@ -46,11 +46,9 @@
     DHFreeModePannelObj* _pannel;
     CGRect            _pannelRect;
     
-    /*
     DHDogObj*      _dogObj;
     CGRect         _dogRect;
-    */
-     
+    
     DHIntroPannelObj* _introObj;
     CGRect            _introRect;
     
@@ -98,7 +96,7 @@
         [DHGameData sharedDHGameData].cur_game_mode = FREE_MODE;
         
         [self initBG];
-        //[self initDog];
+        [self initDog];
         [self initIntro];
         [self initDucks];
         [self initPannel];
@@ -139,7 +137,6 @@
     [_bgObj addtoScene: self];
 }
 
-/*
 -(void)initDog
 {
     _dogRect = _bgRect;
@@ -148,7 +145,6 @@
     _dogObj = [[DHDogObj alloc] initWithWinRect:_dogRect];
     [_dogObj addtoScene: self];
 }
-*/
  
 -(void)initIntro
 {
@@ -205,27 +201,27 @@
 -(void) update:(ccTime)dt
 {
     [self updateBG:dt];
-    //[self updateDog:dt];
+    [self updateDog:dt];
     [self updateIntro:dt];
     [self updatePannel:dt];
     
-    if( _gameTime > 2 )
+    if( _dogObj.dog_state == DOG_DISAPPEAR )
     {
         [_introObj removeFromScene:self];
-    }
-    
-    _gameTime += dt;
-    [self updateDucks:dt];
-    
-    if(FREEMODE_TOTAL_DUCK <= _miss_count)
-    {
-        [self game_over];
-    }
-    
-    if( _cur_chp == _next_chp && !_gameover )
-    {
-        _next_chp += FREEMODE_CHAPTER_STEP;
-        [self game_continue];
+        
+        _gameTime += dt;
+        [self updateDucks:dt];
+        
+        if(FREEMODE_TOTAL_DUCK <= _miss_count)
+        {
+            [self game_over];
+        }
+        
+        if( _cur_chp == _next_chp && !_gameover )
+        {
+            _next_chp += FREEMODE_CHAPTER_STEP;
+            [self game_continue];
+        }
     }
 }
 
@@ -234,12 +230,10 @@
     [_bgObj update:dt];
 }
 
-/*
 -(void) updateDog:(ccTime)dt
 {
     [_dogObj update:dt];
 }
-*/
  
 -(void) updateIntro:(ccTime)dt
 {
@@ -421,7 +415,7 @@
 	[_bgObj release];
     [_ducks release];
     [_pannel release];
-    //[_dogObj release];
+    [_dogObj release];
     [_introObj release];
     
 	// don't forget to call "super dealloc"
