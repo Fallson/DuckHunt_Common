@@ -70,10 +70,10 @@
 
 -(void)initScores
 {
-    NSString* freemode_str = [NSString stringWithFormat:@"Your Score: "];
+    NSString* freemode_str = [NSString stringWithFormat:@"Free Mode : "];
     DHLabel* freemode_lable = [DHLabel labelWithString:freemode_str fontName:DHLABEL_FONT fontSize:24*[[DHGameData sharedDHGameData] getScale]];
     freemode_lable.color = ccYELLOW;
-    freemode_lable.position = ccp(_bgRect.origin.x + _bgRect.size.width*0.5, _bgRect.origin.y + 0.8*_bgRect.size.height);
+    freemode_lable.position = ccp(_bgRect.origin.x + _bgRect.size.width*0.5, _bgRect.origin.y + 0.9*_bgRect.size.height);
     [freemode_lable setAnchorPoint: ccp(0.5f, 0.5f)];
     [self addChild:freemode_lable];
     
@@ -82,9 +82,9 @@
     {
         int s = [[scores objectAtIndex:i] intValue];
         NSString* score_str = [NSString stringWithFormat:@"%d", s];
-        DHLabel* score_label = [DHLabel labelWithString:score_str fontName:DHLABEL_FONT fontSize:20*[[DHGameData sharedDHGameData] getScale]];
+        DHLabel* score_label = [DHLabel labelWithString:score_str fontName:DHLABEL_FONT fontSize:18*[[DHGameData sharedDHGameData] getScale]];
         score_label.color = ccYELLOW;
-        score_label.position = ccp(_bgRect.origin.x + _bgRect.size.width*0.5, _bgRect.origin.y + (0.75-0.04*i)*_bgRect.size.height);
+        score_label.position = ccp(_bgRect.origin.x + _bgRect.size.width*0.5, _bgRect.origin.y + (0.85-0.03*i)*_bgRect.size.height);
         [score_label setAnchorPoint: ccp(0.5f, 0.5f)];
         [self addChild:score_label];
         
@@ -96,7 +96,6 @@
         //[label setAnchorPoint: ccp(0.5f, 0.5f)];
     }
     
-#if 0
     NSString* timemode_str = [NSString stringWithFormat:@"Time Mode : "];
     DHLabel* timemode_lable = [DHLabel labelWithString:timemode_str fontName:DHLABEL_FONT fontSize:24*[[DHGameData sharedDHGameData] getScale]];
     timemode_lable.color = ccYELLOW;
@@ -122,7 +121,6 @@
         // center aligment (default)
         //[label setAnchorPoint: ccp(0.5f, 0.5f)];
     }
-#endif
 }
 
 -(void)initMenu

@@ -118,7 +118,7 @@ static DHGameData *_sharedDHGameData=nil;
     }
     [s insertObject:[NSNumber numberWithInt:sc] atIndex:i];
     
-    while( [s count] > 10 )
+    while( [s count] > 5 )
     {
         [s removeLastObject];
     }
