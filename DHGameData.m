@@ -158,7 +158,7 @@ static DHGameData *_sharedDHGameData=nil;
     
     if( [settings objectForKey:@"gameMusic"] == nil )
     {
-        self.gameMusic = 0;
+        self.gameMusic = 1;
     }
     else
     {
