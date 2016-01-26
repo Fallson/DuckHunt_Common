@@ -15,8 +15,7 @@
 #define DUCK_Z       -4
 #define PARRAT_Z     -4
 #define BG_GRASS_Z   -3
-#define BG_TREE_Z    -2
-#define DOG_Z        -1
-
+#define DOG_Z        -2
+#define BG_TREE_Z    -1
 
 #endif

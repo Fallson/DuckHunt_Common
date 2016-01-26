@@ -893,3 +893,189 @@
     }
 }
 @end
+
+
+#pragma mark - DHDuckMO7Pilot
+@implementation DHDuckMO7Pilot_MPilot
+-(void)adjustEndPos:(int)idx
+{
+    float b = _bbox.size.height/(1.0*CURVE_RATIO);
+    float db = b/4.0;
+    
+    float dy = 0.0;
+    if( idx %2 == 0 )
+    {
+        dy = db * idx/2;
+    }
+    else
+    {
+        dy = db * (idx/2 + 1)*-1;
+    }
+    
+    _endPos.x = _centerPos.x;
+    _endPos.y = _centerPos.y + dy;
+}
+
+-(id)initWithWinRect:(CGRect)rect andObjSz:(CGSize)sz andGroupID:(int)idx
+{
+    if( self = [super initWithWinRect:rect andObjSz:sz] )
+    {
+        CGPoint pnt = [self centerPnt:_bbox];
+        pnt.x *= ILU_BOUNDARY;
+        [self setEndPos:pnt];
+        [self adjustEndPos:idx];
+    }
+    return self;
+}
+
+-(enum Direction)getHorizationDirection
+{
+    if ([super inCurve])
+    {
+        return RIGHT;
+    }
+    else
+    {
+        return [super getHorizationDirection];
+    }
+}
+
+-(void)update:(ccTime)dt
+{
+    if( [super inCurve] )
+    {
+    }
+    else
+    {
+        [super update:dt];
+    }
+}
+@end
+
+@implementation DHDuckMO7Pilot_OPilot
+-(void)adjustEndPos:(int)idx
+{
+    float b = _bbox.size.height/(1.0*CURVE_RATIO);
+    float db = b/4.0;
+    
+    float dy = 0.0;
+    if( idx %2 == 0 )
+    {
+        dy = db * idx/2;
+    }
+    else
+    {
+        dy = db * (idx/2 + 1)*-1;
+    }
+    
+    _endPos.x = _centerPos.x;
+    _endPos.y = _centerPos.y + dy;
+}
+
+-(id)initWithWinRect:(CGRect)rect andObjSz:(CGSize)sz andGroupID:(int)idx
+{
+    if( self = [super initWithWinRect:rect andObjSz:sz] )
+    {
+        CGPoint pnt = [self centerPnt:_bbox];
+        pnt.x *= ILU_BOUNDARY;
+        [self setEndPos:pnt];
+        [self adjustEndPos:idx];
+    }
+    return self;
+}
+
+-(enum Direction)getHorizationDirection
+{
+    if ([super inCurve])
+    {
+        return RIGHT;
+    }
+    else
+    {
+        return [super getHorizationDirection];
+    }
+}
+
+-(void)update:(ccTime)dt
+{
+    if( [super inCurve] )
+    {
+    }
+    else
+    {
+        [super update:dt];
+    }
+}
+@end
+
+@implementation DHDuckMO7Pilot_7Pilot
+//9 ducks
+-(void)adjustEndPos:(int)idx
+{
+    float a = _bbox.size.width/(1.0*CURVE_RATIO);
+    float da = a/24.0;
+    float b = _bbox.size.height/(1.0*CURVE_RATIO);
+    float db = b/4.0;
+    
+    float dx = 0.0;
+    float dy = 0.0;
+    if( idx < 6 )
+    {
+        if( idx %2 == 0 )
+        {
+            dx = da * idx/2;
+            dy = db * idx/2;
+        }
+        else
+        {
+            dx = da * (idx/2 + 1)*-1;
+            dy = db * (idx/2 + 1)*-1;
+        }
+    }
+    else
+    {
+        dx = da * 4/2 - da * (idx - 4);
+        dx *= 2;
+        dy = db * 4/2;
+    }
+    
+    _endPos.x = _centerPos.x + dx;
+    _endPos.y = _centerPos.y + dy;
+}
+
+-(id)initWithWinRect:(CGRect)rect andObjSz:(CGSize)sz andGroupID:(int)idx
+{
+    if( self = [super initWithWinRect:rect andObjSz:sz] )
+    {
+        CGPoint pnt = [self centerPnt:_bbox];
+        pnt.x *= (2.0 - ILU_BOUNDARY);
+        [self setEndPos:pnt];
+        [self adjustEndPos:idx];
+    }
+    return self;
+}
+
+-(enum Direction)getHorizationDirection
+{
+    if ([super inCurve])
+    {
+        return LEFT;
+    }
+    else
+    {
+        return [super getHorizationDirection];
+    }
+}
+
+-(void)update:(ccTime)dt
+{
+    if( [super inCurve] )
+    {
+    }
+    else
+    {
+        [super update:dt];
+    }
+}
+@end
+

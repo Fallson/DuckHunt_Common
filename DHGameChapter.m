@@ -5,7 +5,7 @@
 //  Created by Fallson on 8/5/13.
 //  Copyright (c) 2013 Fallson. All rights reserved.
 //
-
+#import "DHConstons.h"
 #import "DHGameChapter.h"
 #import "DHDuckObj.h"
 #import "DHPilotManager.h"
@@ -163,7 +163,6 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     CREATE_DUCKS
 }
 
-#define LAST_CHP_MAX_DUCK_NUM 20
 -(void)setDucks_Chapter10:(NSMutableArray*)ducks andWinRect:(NSValue*)rectValue
 {
     CGRect rect = [rectValue CGRectValue];
@@ -197,7 +196,7 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     
     enum PILOT_TYPE ptypes[LAST_CHP_MAX_DUCK_NUM];
     float speeds[LAST_CHP_MAX_DUCK_NUM];
-    int duck_num = (arc4random()%(2+lvl) + 6);
+    int duck_num = (arc4random()%(2+lvl) + 3);
     for( int i = 0; i < duck_num; i++ )
     {
         ptypes[i] = ptypes_candidates[arc4random()%(sizeof(ptypes_candidates)/sizeof(enum PILOT_TYPE))];
@@ -233,7 +232,6 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     
 }
 
-#define FUNNY_CHP_DUCK_NUM 20
 -(NSMutableArray*)getBonusDucks:(CGRect)rect
 {
     NSMutableArray* ducks = [NSMutableArray array];
@@ -272,37 +270,37 @@ static DHGameChapter *_sharedDHGameChapter=nil;
             enum DUCK_TYPE dtypes[FUNNY_CHP_DUCK_NUM];
             enum PILOT_TYPE ptypes[FUNNY_CHP_DUCK_NUM];
             float speeds[FUNNY_CHP_DUCK_NUM];
-            for( int i = 0; i < 5; i++ )
+            for( int i = 0; i < ILOVEU_I_DUCK_NUM; i++ )
             {
                 dtypes[i] = BLACK_DUCK;
                 ptypes[i] = DUCK_ILOVEU_I;
                 speeds[i] = 1.0;
             }
-            for( int i = 0; i < 5; i++ )
+            for( int i = 0; i < ILOVEU_I_DUCK_NUM; i++ )
             {
                 CREATE_DUCKS_IN_LOOP2
             }
             
             //Love
-            for( int i = 0; i < FUNNY_CHP_DUCK_NUM; i++ )
+            for( int i = 0; i < ILOVEU_L_DUCK_NUM; i++ )
             {
                 dtypes[i] = BLACK_DUCK;
                 ptypes[i] = DUCK_ILOVEU_L;
                 speeds[i] = 1.0;
             }
-            for( int i = 0; i < FUNNY_CHP_DUCK_NUM; i++ )
+            for( int i = 0; i < ILOVEU_L_DUCK_NUM; i++ )
             {
                 CREATE_DUCKS_IN_LOOP2
             }
             
             //U
-            for( int i = 0; i < 11; i++ )
+            for( int i = 0; i < ILOVEU_U_DUCK_NUM; i++ )
             {
                 dtypes[i] = BLACK_DUCK;
                 ptypes[i] = DUCK_ILOVEU_U;
                 speeds[i] = 1.0;
             }
-            for( int i = 0; i < 11; i++ )
+            for( int i = 0; i < ILOVEU_U_DUCK_NUM; i++ )
             {
                 CREATE_DUCKS_IN_LOOP2
             }
@@ -322,10 +320,56 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     
     enum DUCK_TYPE dtypes[1]={FALLSON_DUCK};
     enum PILOT_TYPE ptypes[1]={DUCK_NORMAL};
-    float speeds[1]={5.0};
+    float speeds[1]={4.0};
     
     CREATE_DUCKS2
     
+    return ducks;
+}
+
+-(NSMutableArray*)getMO7BonusDucks:(CGRect)rect
+{
+    NSMutableArray* ducks = [NSMutableArray array];
+    
+    //M
+    enum DUCK_TYPE dtypes[FUNNY_CHP_DUCK_NUM];
+    enum PILOT_TYPE ptypes[FUNNY_CHP_DUCK_NUM];
+    float speeds[FUNNY_CHP_DUCK_NUM];
+    for( int i = 0; i < 5; i++ )
+    {
+        dtypes[i] = BLACK_DUCK;
+        ptypes[i] = DUCK_ILOVEU_I;
+        speeds[i] = 1.0;
+    }
+    for( int i = 0; i < 5; i++ )
+    {
+        CREATE_DUCKS_IN_LOOP2
+    }
+    
+    //O
+    for( int i = 0; i < FUNNY_CHP_DUCK_NUM; i++ )
+    {
+        dtypes[i] = BLACK_DUCK;
+        ptypes[i] = DUCK_ILOVEU_L;
+        speeds[i] = 1.0;
+    }
+    for( int i = 0; i < FUNNY_CHP_DUCK_NUM; i++ )
+    {
+        CREATE_DUCKS_IN_LOOP2
+    }
+    
+    //7
+    for( int i = 0; i < MO7_7_DUCK_NUM; i++ )
+    {
+        dtypes[i] = BLACK_DUCK;
+        ptypes[i] = DUCK_MO7_7;
+        speeds[i] = 1.0;
+    }
+    for( int i = 0; i < MO7_7_DUCK_NUM; i++ )
+    {
+        CREATE_DUCKS_IN_LOOP2
+    }
+
     return ducks;
 }
 

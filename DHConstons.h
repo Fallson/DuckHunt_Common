@@ -30,6 +30,15 @@ enum DEVICE_TYPE{IPHONE=0, IPAD};
 #define MaxLineSteps  40
 #define MaxCurveSteps 100
 
+#define LAST_CHP_MAX_DUCK_NUM 20
+#define FUNNY_CHP_DUCK_NUM 20
+#define ILOVEU_I_DUCK_NUM 5  //must be less or equal than FUNNY_CHP_DUCK_NUM
+#define ILOVEU_L_DUCK_NUM 20 //must be less or equal than FUNNY_CHP_DUCK_NUM
+#define ILOVEU_U_DUCK_NUM 11 //must be less or equal than FUNNY_CHP_DUCK_NUM
+#define MO7_M_DUCK_NUM 20 //must be less or equal than FUNNY_CHP_DUCK_NUM
+#define MO7_O_DUCK_NUM 20 //must be less or equal than FUNNY_CHP_DUCK_NUM
+#define MO7_7_DUCK_NUM 9  //must be less or equal than FUNNY_CHP_DUCK_NUM
+
 #pragma mark - ios version
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)

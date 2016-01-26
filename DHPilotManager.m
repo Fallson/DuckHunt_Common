@@ -83,6 +83,15 @@ static DHPilotManager *_sharedDHPilotManager=nil;
         case DUCK_ILOVEU_U:
             pilot = [[DHDuckILoveU_UPilot alloc]initWithWinRect:rect andObjSz:sz andGroupID:idx];
             break;
+        case DUCK_MO7_M:
+            pilot = [[DHDuckMO7Pilot_MPilot alloc]initWithWinRect:rect andObjSz:sz andGroupID:idx];
+            break;
+        case DUCK_MO7_O:
+            pilot = [[DHDuckMO7Pilot_OPilot alloc]initWithWinRect:rect andObjSz:sz andGroupID:idx];
+            break;
+        case DUCK_MO7_7:
+            pilot = [[DHDuckMO7Pilot_7Pilot alloc]initWithWinRect:rect andObjSz:sz andGroupID:idx];
+            break;
     }
     
     return pilot;

@@ -14,7 +14,8 @@ enum PILOT_TYPE{DUCK_NORMAL=0, DUCK_DEAD, DUCK_FLYAWAY,
                 DUCK_CIRCLE, DUCK_CIRCLE_GROUP,
                 DUCK_ELLIPSE, DUCK_ELLIPSE_GROUP,
                 DUCK_SIN, DUCK_SIN_GROUP,
-                DUCK_ILOVEU_I, DUCK_ILOVEU_L, DUCK_ILOVEU_U};
+                DUCK_ILOVEU_I, DUCK_ILOVEU_L, DUCK_ILOVEU_U,
+                DUCK_MO7_M, DUCK_MO7_O, DUCK_MO7_7};
 
 @interface DHPilotManager : NSObject
 +(DHPilotManager *)sharedDHPilotManager;

@@ -120,3 +120,23 @@ enum Direction { LEFT=0, BOTTOM, RIGHT, UP, RANDOM, IN, OUT };
 -(void)update:(ccTime)dt;
 -(enum Direction)getHorizationDirection;
 @end
+
+#pragma mark - DHDuckMO7Pilot
+@interface DHDuckMO7Pilot_MPilot: DHDuckPilot
+-(id)initWithWinRect:(CGRect)rect andObjSz:(CGSize)sz andGroupID:(int)idx;
+-(void)update:(ccTime)dt;
+-(enum Direction)getHorizationDirection;
+@end
+
+@interface DHDuckMO7Pilot_OPilot: DHDuckPilot
+-(id)initWithWinRect:(CGRect)rect andObjSz:(CGSize)sz andGroupID:(int)idx;
+-(void)update:(ccTime)dt;
+-(enum Direction)getHorizationDirection;
+@end
+
+@interface DHDuckMO7Pilot_7Pilot: DHDuckPilot
+-(id)initWithWinRect:(CGRect)rect andObjSz:(CGSize)sz andGroupID:(int)idx;
+-(void)update:(ccTime)dt;
+-(enum Direction)getHorizationDirection;
+@end
+

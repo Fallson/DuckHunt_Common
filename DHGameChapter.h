@@ -18,5 +18,6 @@ enum CHAPTER_LVL{CHAPTER0=-1,CHAPTER1=0,CHAPTER2,CHAPTER3,CHAPTER4,CHAPTER5,
 -(NSMutableArray*)getChapterDucks:(enum CHAPTER_LVL) lvl andWinRect:(CGRect)rect;
 -(NSMutableArray*)getBonusDucks:(CGRect)rect;
 -(NSMutableArray*)getFallsonBonusDucks:(CGRect)rect;
+-(NSMutableArray*)getMO7BonusDucks:(CGRect)rect;
 -(NSMutableArray*)getBGDucks:(CGRect)rect;
 @end
