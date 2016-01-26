@@ -35,7 +35,7 @@ enum DEVICE_TYPE{IPHONE=0, IPAD};
 #define ILOVEU_I_DUCK_NUM 5  //must be less or equal than FUNNY_CHP_DUCK_NUM
 #define ILOVEU_L_DUCK_NUM 20 //must be less or equal than FUNNY_CHP_DUCK_NUM
 #define ILOVEU_U_DUCK_NUM 11 //must be less or equal than FUNNY_CHP_DUCK_NUM
-#define MO7_M_DUCK_NUM 20 //must be less or equal than FUNNY_CHP_DUCK_NUM
+#define MO7_M_DUCK_NUM 19 //must be less or equal than FUNNY_CHP_DUCK_NUM
 #define MO7_O_DUCK_NUM 20 //must be less or equal than FUNNY_CHP_DUCK_NUM
 #define MO7_7_DUCK_NUM 9  //must be less or equal than FUNNY_CHP_DUCK_NUM
 

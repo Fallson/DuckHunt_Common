@@ -896,24 +896,28 @@
 
 
 #pragma mark - DHDuckMO7Pilot
+#define MO7_BOUNDARY 0.5
 @implementation DHDuckMO7Pilot_MPilot
 -(void)adjustEndPos:(int)idx
 {
+    static CGVector delta[] = {{0.0,0.0}, {-1.0,1.0}, {-2.0,2.0}, {-3.0,3.0}, {-4.0,4.0},
+        {-5.0,3.0}, {-6.0,2.0}, {-7.0,1.0}, {-8.0,0.0}, {-9.0,-1.0},
+        {1.0,1.0}, {2.0,2.0}, {3.0,3.0}, {4.0,4.0},
+        {5.0,3.0}, {6.0,2.0}, {7.0,1.0}, {8.0,0.0}, {9.0,-1.0}};
+    
+    if( idx > sizeof(delta)/sizeof(CGVector))
+    {
+        NSLog(@"Out of mem");
+        return;
+    }
+    
+    float a = _bbox.size.width/(1.0*CURVE_RATIO);
+    float da = a/24.0;
     float b = _bbox.size.height/(1.0*CURVE_RATIO);
     float db = b/4.0;
     
-    float dy = 0.0;
-    if( idx %2 == 0 )
-    {
-        dy = db * idx/2;
-    }
-    else
-    {
-        dy = db * (idx/2 + 1)*-1;
-    }
-    
-    _endPos.x = _centerPos.x;
-    _endPos.y = _centerPos.y + dy;
+    _endPos.x = _centerPos.x + delta[idx].dx * da;
+    _endPos.y = _centerPos.y + delta[idx].dy * db;
 }
 
 -(id)initWithWinRect:(CGRect)rect andObjSz:(CGSize)sz andGroupID:(int)idx
@@ -921,7 +925,8 @@
     if( self = [super initWithWinRect:rect andObjSz:sz] )
     {
         CGPoint pnt = [self centerPnt:_bbox];
-        pnt.x *= ILU_BOUNDARY;
+        pnt.x *= MO7_BOUNDARY;
+        pnt.y -= 50;
         [self setEndPos:pnt];
         [self adjustEndPos:idx];
     }
@@ -932,7 +937,7 @@
 {
     if ([super inCurve])
     {
-        return RIGHT;
+        return LEFT;
     }
     else
     {
@@ -952,32 +957,42 @@
 }
 @end
 
+
 @implementation DHDuckMO7Pilot_OPilot
+{
+    double _cur_angle;
+    double _delta_angle;
+    
+    float a;
+    float b;
+}
+
+//20 ducks
 -(void)adjustEndPos:(int)idx
 {
-    float b = _bbox.size.height/(1.0*CURVE_RATIO);
-    float db = b/4.0;
-    
-    float dy = 0.0;
-    if( idx %2 == 0 )
+    _cur_angle = _delta_angle*Groupfactor*idx;
+    if( _cur_angle > 2 * PI )
     {
-        dy = db * idx/2;
-    }
-    else
-    {
-        dy = db * (idx/2 + 1)*-1;
+        _cur_angle = 0.0;
     }
     
-    _endPos.x = _centerPos.x;
-    _endPos.y = _centerPos.y + dy;
+    a = _bbox.size.width/(5.0*CURVE_RATIO);
+    b = _bbox.size.height/(1.5*CURVE_RATIO);
+    
+    _endPos.x = _centerPos.x + (float)(a * cos(_cur_angle));
+    _endPos.y = _centerPos.y + (float)(b * sin(_cur_angle));
 }
 
 -(id)initWithWinRect:(CGRect)rect andObjSz:(CGSize)sz andGroupID:(int)idx
 {
     if( self = [super initWithWinRect:rect andObjSz:sz] )
     {
+        _cur_angle = 0.0;
+        _delta_angle = 2 * PI / MaxCurveSteps;
+        
         CGPoint pnt = [self centerPnt:_bbox];
-        pnt.x *= ILU_BOUNDARY;
+        pnt.x += 55;
+        pnt.y -= 15;
         [self setEndPos:pnt];
         [self adjustEndPos:idx];
     }
@@ -988,7 +1003,18 @@
 {
     if ([super inCurve])
     {
-        return RIGHT;
+        if (_cur_angle >= 0 && _cur_angle < PI)
+        {
+            return LEFT;
+        }
+        else if (_cur_angle >= PI && _cur_angle < PI * 2)
+        {
+            return RIGHT;
+        }
+        else
+        {
+            return RIGHT;
+        }
     }
     else
     {
@@ -1000,6 +1026,14 @@
 {
     if( [super inCurve] )
     {
+        _cur_angle += _delta_angle;
+        if (_cur_angle > 2 * PI)
+        {
+            _cur_angle = 0.0;
+        }
+        
+        _position.x = _centerPos.x + (float)(a * cos(_cur_angle));
+        _position.y = _centerPos.y + (float)(b * sin(_cur_angle));
     }
     else
     {
@@ -1012,6 +1046,7 @@
 //9 ducks
 -(void)adjustEndPos:(int)idx
 {
+    static CGVector delta = {};
     float a = _bbox.size.width/(1.0*CURVE_RATIO);
     float da = a/24.0;
     float b = _bbox.size.height/(1.0*CURVE_RATIO);
@@ -1048,7 +1083,7 @@
     if( self = [super initWithWinRect:rect andObjSz:sz] )
     {
         CGPoint pnt = [self centerPnt:_bbox];
-        pnt.x *= (2.0 - ILU_BOUNDARY);
+        pnt.x *= (2.2 - MO7_BOUNDARY);
         [self setEndPos:pnt];
         [self adjustEndPos:idx];
     }

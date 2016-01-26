@@ -335,25 +335,25 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     enum DUCK_TYPE dtypes[FUNNY_CHP_DUCK_NUM];
     enum PILOT_TYPE ptypes[FUNNY_CHP_DUCK_NUM];
     float speeds[FUNNY_CHP_DUCK_NUM];
-    for( int i = 0; i < 5; i++ )
+    for( int i = 0; i < MO7_M_DUCK_NUM; i++ )
     {
         dtypes[i] = BLACK_DUCK;
-        ptypes[i] = DUCK_ILOVEU_I;
+        ptypes[i] = DUCK_MO7_M;
         speeds[i] = 1.0;
     }
-    for( int i = 0; i < 5; i++ )
+    for( int i = 0; i < MO7_M_DUCK_NUM; i++ )
     {
         CREATE_DUCKS_IN_LOOP2
     }
     
     //O
-    for( int i = 0; i < FUNNY_CHP_DUCK_NUM; i++ )
+    for( int i = 0; i < MO7_O_DUCK_NUM; i++ )
     {
         dtypes[i] = BLACK_DUCK;
-        ptypes[i] = DUCK_ILOVEU_L;
+        ptypes[i] = DUCK_MO7_O;
         speeds[i] = 1.0;
     }
-    for( int i = 0; i < FUNNY_CHP_DUCK_NUM; i++ )
+    for( int i = 0; i < MO7_O_DUCK_NUM; i++ )
     {
         CREATE_DUCKS_IN_LOOP2
     }
