@@ -241,7 +241,8 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     enum PILOT_TYPE ptypes_candidates[] = {DUCK_EIGHT_GROUP,
         DUCK_CIRCLE_GROUP,
         DUCK_ELLIPSE_GROUP,
-        DUCK_SIN_GROUP};
+        DUCK_SIN_GROUP,
+        DUCK_ILOVEU_I};
     enum PILOT_TYPE type = ptypes_candidates[arc4random()%(sizeof(ptypes_candidates)/sizeof(enum PILOT_TYPE))];
     
     switch(type)
@@ -262,6 +263,11 @@ static DHGameChapter *_sharedDHGameChapter=nil;
             }
             
             CREATE_DUCKS2
+        }
+            break;
+        case DUCK_ILOVEU_I:
+        {
+            ducks = [self getILoveUBonusDucks:rect];
         }
             break;
         default:

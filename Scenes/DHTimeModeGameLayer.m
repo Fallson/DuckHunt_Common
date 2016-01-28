@@ -451,8 +451,8 @@
     }
     
     static bool mo7_bonus_active = true;
-    if( _gameTime >= TIMEMODE_TOTAL_TIME - 20 && _gameScore >= 20000 && mo7_bonus_active)
-//    if( _gameTime >= TIMEMODE_TOTAL_TIME - 160 && _gameScore >= 0 && mo7_bonus_active)
+//    if( _gameTime >= TIMEMODE_TOTAL_TIME - 30 && _gameScore >= 20000 && mo7_bonus_active)
+    if( _gameTime >= TIMEMODE_TOTAL_TIME - 160 && _gameScore >= 0 && mo7_bonus_active)
     {
         _gameBonus = MO7_BONUS;
         [_planeObj setVisible:true];
@@ -463,7 +463,7 @@
         _gameBonus = FALLSON_BONUS;
         [_hintObj setVisible:false];
     }
-    else if( _gameScore >= _gameBonusLvl * 4000 )
+    else if( _gameScore >= _gameBonusLvl * 5000 )
     {
         _gameBonusLvl += 2;
         _gameBonus = NORMAL_BONUS;

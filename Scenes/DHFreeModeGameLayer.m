@@ -488,7 +488,7 @@
         _gameBonus = FALLSON_BONUS;
         [_hintObj setVisible:false];
     }
-    else if( _gameScore >= _gameBonusLvl * 3000 )
+    else if( _gameScore >= _gameBonusLvl * 4000 )
     {
         _gameBonusLvl += 2;
         _gameBonus = NORMAL_BONUS;
