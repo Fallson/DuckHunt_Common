@@ -196,11 +196,13 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     
     enum PILOT_TYPE ptypes[LAST_CHP_MAX_DUCK_NUM];
     float speeds[LAST_CHP_MAX_DUCK_NUM];
-    int duck_num = (arc4random()%(2+lvl) + 3);
+    int duck_num = (arc4random()%(2+lvl*2) + 3);
+    if( duck_num > LAST_CHP_MAX_DUCK_NUM )
+        duck_num = LAST_CHP_MAX_DUCK_NUM;
     for( int i = 0; i < duck_num; i++ )
     {
         ptypes[i] = ptypes_candidates[arc4random()%(sizeof(ptypes_candidates)/sizeof(enum PILOT_TYPE))];
-        speeds[i] = 2.5 + (float)(arc4random()%(2+lvl))/(float)4.0;
+        speeds[i] = 1.0 + (float)(arc4random()%(2+lvl))/(float)4.0;
     }
     
     for( int i = 0; i < duck_num; i++ )
@@ -321,7 +323,7 @@ static DHGameChapter *_sharedDHGameChapter=nil;
     
     enum DUCK_TYPE dtypes[1]={FALLSON_DUCK};
     enum PILOT_TYPE ptypes[1]={DUCK_NORMAL};
-    float speeds[1]={4.0};
+    float speeds[1]={6.0};
     
     CREATE_DUCKS2
     

@@ -912,7 +912,7 @@
     }
     
     float a = _bbox.size.width/(1.0*CURVE_RATIO);
-    float da = a/24.0;
+    float da = a/28.0;
     float b = _bbox.size.height/(1.0*CURVE_RATIO);
     float db = b/4.0;
     

@@ -27,6 +27,8 @@
 #import "DHGameMenuLayer.h"
 #import "DHPilotManager.h"
 #import "DHScore.h"
+#import "DHHintObj.h"
+#import "DHPlaneObj.h"
 #pragma mark - DHTimeModeGameLayer
 
 
@@ -51,6 +53,12 @@
     
     DHIntroPannelObj* _introObj;
     CGRect            _introRect;
+    
+    DHHintObj*     _hintObj;
+    CGRect         _hintRect;
+    
+    DHPlaneObj*    _planeObj;
+    CGRect         _planeRect;
     
     ccTime         _nextDuckTime;
     ccTime         _gameTime;
@@ -98,6 +106,8 @@
         [self initDucks];
         [self initPannel];
         [self initPauseMenu];
+        [self initHint];
+        [self initPlane];
         
         _nextDuckTime = 0;
         _gameTime = 0;
@@ -170,6 +180,21 @@
     [_pannel addtoScene:self];
 }
 
+-(void)initHint
+{
+    _hintRect = _bgRect;
+    
+    _hintObj = [[DHHintObj alloc] initWithWinRect:_hintRect andType:TURTLE_HINT];
+    //[_hintObj addtoScene:self];
+}
+
+-(void)initPlane
+{
+    _planeRect = _bgRect;
+    
+    _planeObj = [[DHPlaneObj alloc] initWithWinRect:_planeRect andType:PLANE1];
+}
+
 -(void)initPauseMenu
 {
     CGRect rect = _bgRect;
@@ -198,6 +223,8 @@
     [self updateDog:dt];
     [self updateIntro:dt];
     [self updatePannel:dt];
+    [self updateHint:dt];
+    [self updatePlane:dt];
     
     if( _dogObj.dog_state == DOG_DISAPPEAR )
     {
@@ -226,6 +253,16 @@
 -(void) updateIntro:(ccTime)dt
 {
     [_introObj update:dt];
+}
+
+-(void)updateHint:(ccTime)dt
+{
+    [_hintObj update:dt];
+}
+
+-(void)updatePlane:(ccTime)dt
+{
+    [_planeObj update:dt];
 }
 
 -(void) updateDucks:(ccTime)dt
@@ -368,32 +405,8 @@
     [self touchDucks:location];
 }
 
--(void)fallsonBonus:(CGPoint)location
-{
-#if 0
-    static int fallson_cnt = 0;
-    static CGPoint pnt = {10.0, 10.0};
-    double dist = (location.x - pnt.x)*(location.x-pnt.x) + (location.y-pnt.y)*(location.y-pnt.y);
-    if( dist < 1000.0 )
-    {
-        fallson_cnt++;
-        if( fallson_cnt >= 5 )
-        {
-            _fallsonBonus = 1;
-            fallson_cnt = 0;
-        }
-    }
-    else
-    {
-        fallson_cnt = 0;
-    }
-#endif
-}
-
 -(void)touchDucks:(CGPoint)location
 {
-    [self fallsonBonus:location];//haha
-    
     for( DHDuckObj* duckObj in _ducks)
     {
         if( duckObj.duck_state == FLYING || duckObj.duck_state == FLYAWAY )
@@ -422,13 +435,36 @@
                 }
                 
                 _gameScore += [DHScore GetScoreByType:duckObj.duck_type];
-                if( _gameScore > _gameBonusLvl * 2000 )
-                {
-                    _gameBonus = NORMAL_BONUS;
-                    _gameBonusLvl += 2;
-                }
             }
         }
+    }
+    
+    static bool mo7_bonus_active = true;
+    if( _gameTime >= TIMEMODE_TOTAL_TIME - 20 && _gameScore >= 20000 && mo7_bonus_active)
+    {
+        _gameBonus = MO7_BONUS;
+        [_planeObj addtoScene:self];
+        mo7_bonus_active = false;
+    }
+    else if( _hintObj.visible && [_hintObj hit:location] )
+    {
+        _gameBonus = FALLSON_BONUS;
+        [_hintObj removeFromScene:self];
+    }
+    else if( _gameScore >= _gameBonusLvl * 4000 )
+    {
+        _gameBonusLvl += 2;
+        _gameBonus = NORMAL_BONUS;
+    }
+    
+    static int fallson_bonus_idx = 0;
+    if( _gameTime >= (TIMEMODE_TOTAL_TIME*(fallson_bonus_idx+1)/5.0) ) //
+    {
+        if( !_hintObj.visible )
+        {
+            [_hintObj addtoScene:self];
+        }
+        fallson_bonus_idx++;
     }
 }
 
