@@ -27,6 +27,8 @@
 #import "DHGameMenuLayer.h"
 #import "DHScore.h"
 #import "DHFreeModeContinueLayer.h"
+#import "DHHintObj.h"
+#import "DHPlaneObj.h"
 #pragma mark - DHFreeModeGameLayer
 
 @interface DHFreeModeGameLayer()
@@ -52,6 +54,12 @@
     DHIntroPannelObj* _introObj;
     CGRect            _introRect;
     
+    DHHintObj*     _hintObj;
+    CGRect         _hintRect;
+    
+    DHPlaneObj*    _planeObj;
+    CGRect         _planeRect;
+    
     ccTime         _nextDuckTime;
     ccTime         _gameTime;
     int            _gameLvl;
@@ -61,8 +69,9 @@
     GameHit        _game_hit;
     int            _gameScore;
     
-    int            _gameBonus;
-    int            _gameBonusLvl;
+    enum GAME_BONUS_TYPE _gameBonus;
+    int                  _gameBonusLvl;
+    
     
     bool           _gameover;
 }
@@ -101,6 +110,8 @@
         [self initDucks];
         [self initPannel];
         [self initPauseMenu];
+        [self initHint];
+        [self initPlane];
         
         _nextDuckTime = 0;
         _gameTime = 0;
@@ -176,6 +187,24 @@
     [_pannel addtoScene:self];
 }
 
+-(void)initHint
+{
+    _hintRect = _bgRect;
+    
+    _hintObj = [[DHHintObj alloc] initWithWinRect:_hintRect andType:TURTLE_HINT];
+    [_hintObj addtoScene:self];
+    [_hintObj setVisible:false];
+}
+
+-(void)initPlane
+{
+    _planeRect = _bgRect;
+    
+    _planeObj = [[DHPlaneObj alloc] initWithWinRect:_planeRect andType:PLANE1];
+    [_planeObj addtoScene:self];
+    [_planeObj setVisible:false];
+}
+
 -(void)initPauseMenu
 {
     CGRect rect = _bgRect;
@@ -204,6 +233,8 @@
     [self updateDog:dt];
     [self updateIntro:dt];
     [self updatePannel:dt];
+    [self updateHint:dt];
+    [self updatePlane:dt];
     
     if( _dogObj.dog_state == DOG_DISAPPEAR )
     {
@@ -222,6 +253,13 @@
             _next_chp += FREEMODE_CHAPTER_STEP;
             [self game_continue];
         }
+        
+        static int fallson_bonus_idx = 1;
+        if( _gameLvl >= FREEMODE_CHAPTER_STEP*fallson_bonus_idx ) //
+        {
+            [_hintObj setVisible:true];
+            fallson_bonus_idx++;
+        }
     }
 }
 
@@ -238,6 +276,16 @@
 -(void) updateIntro:(ccTime)dt
 {
     [_introObj update:dt];
+}
+
+-(void)updateHint:(ccTime)dt
+{
+    [_hintObj update:dt];
+}
+
+-(void)updatePlane:(ccTime)dt
+{
+    [_planeObj update:dt];
 }
 
 -(void) updateDucks:(ccTime)dt
@@ -282,20 +330,49 @@
         }
         
         NSMutableArray* new_ducks = nil;
-        if( _gameBonus )
+        switch (_gameBonus)
         {
-            _gameBonus = 0;
-            new_ducks = [[DHGameChapter sharedDHGameChapter] getBonusDucks:_duckRect];
-        }
-        else
-        {
-            _cur_chp++;
-            _gameLvl++;
-            if( _cur_chp >= CHAPTER_MAX )
-                new_ducks = [[DHGameChapter sharedDHGameChapter] getChapterDucks:CHAPTER_MAX-1 andWinRect:_duckRect];
-            else
+            case NONE_BONUS:
+            {
+                _cur_chp++;
+                if( _cur_chp >= CHAPTER_MAX )
+                {
+                    _cur_chp = CHAPTER_MAX-1;
+                }
                 new_ducks = [[DHGameChapter sharedDHGameChapter] getChapterDucks:_cur_chp andWinRect:_duckRect];
+            }
+                break;
+            case FALLSON_BONUS:
+            {
+                _cur_chp++;
+                if( _cur_chp >= CHAPTER_MAX )
+                {
+                    _cur_chp = CHAPTER_MAX-1;
+                }
+                new_ducks = [[DHGameChapter sharedDHGameChapter] getChapterDucks:_cur_chp andWinRect:_duckRect];
+                [new_ducks addObjectsFromArray:[[DHGameChapter sharedDHGameChapter] getFallsonBonusDucks:_duckRect]];
+            }
+                break;
+            case NORMAL_BONUS:
+            {
+                new_ducks = [[DHGameChapter sharedDHGameChapter] getBonusDucks:_duckRect];
+            }
+                break;
+            case ILOVEU_BONUS:
+            {
+                new_ducks = [[DHGameChapter sharedDHGameChapter] getILoveUBonusDucks:_duckRect];
+            }
+                break;
+            case MO7_BONUS:
+            {
+                new_ducks = [[DHGameChapter sharedDHGameChapter] getMO7BonusDucks:_duckRect];
+            }
+                break;
+            default:
+                break;
         }
+        _gameLvl++;
+        _gameBonus = NONE_BONUS;
         
         if( new_ducks != nil )
         {
@@ -395,13 +472,26 @@
                 }
                 
                 _gameScore += [DHScore GetScoreByType:duckObj.duck_type];
-                if( _gameScore > _gameBonusLvl * 5000 )
-                {
-                    _gameBonus = 1;
-                    _gameBonusLvl++;
-                }
             }
         }
+    }
+    
+    static bool mo7_bonus_active = true;
+    if( _gameLvl >= 5 && _gameScore >= 10000 && mo7_bonus_active)
+    {
+        _gameBonus = MO7_BONUS;
+        [_planeObj setVisible:true];
+        mo7_bonus_active = false;
+    }
+    else if( [_hintObj getVisible] && [_hintObj hit:location] )
+    {
+        _gameBonus = FALLSON_BONUS;
+        [_hintObj setVisible:false];
+    }
+    else if( _gameScore >= _gameBonusLvl * 3000 )
+    {
+        _gameBonusLvl += 2;
+        _gameBonus = NORMAL_BONUS;
     }
 }
 
@@ -417,6 +507,8 @@
     [_pannel release];
     [_dogObj release];
     [_introObj release];
+    [_hintObj release];
+    [_planeObj release];
     
 	// don't forget to call "super dealloc"
 	[super dealloc];

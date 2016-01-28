@@ -85,20 +85,33 @@ static CGFloat plane_height[]={0.8, 0.8};
         return;
     _accDT = 0;
     
-    _plane_idx = (++_plane_idx)%PLANE_SPRITE_NUM;
-    
-    NSString* frame_name = [NSString stringWithFormat:@"%@_%d.png",plane_files[self.plane_type],_plane_idx];
-    CCSpriteFrame *frame = [[CCSpriteFrameCache sharedSpriteFrameCache]
-                            spriteFrameByName:frame_name];
-    [self.plane setDisplayFrame:frame];
-    
-    CGPoint cur = self.plane.position;
-    cur.x -= PLANE_MV_STEP;
-    if( cur.x < 0 )
+    if( self.plane.visible )
     {
-        cur.x = _winRect.size.width;
+        _plane_idx = (++_plane_idx)%PLANE_SPRITE_NUM;
+        
+        NSString* frame_name = [NSString stringWithFormat:@"%@_%d.png",plane_files[self.plane_type],_plane_idx];
+        CCSpriteFrame *frame = [[CCSpriteFrameCache sharedSpriteFrameCache]
+                                spriteFrameByName:frame_name];
+        [self.plane setDisplayFrame:frame];
+        
+        CGPoint cur = self.plane.position;
+        cur.x -= PLANE_MV_STEP;
+        if( cur.x < 0 )
+        {
+            cur.x = _winRect.size.width;
+        }
+        self.plane.position = cur;
     }
-    self.plane.position = cur;
+}
+
+-(void)setVisible:(bool)visible
+{
+    [self.plane setVisible:visible];
+}
+
+-(bool)getVisible
+{
+    return self.plane.visible;
 }
 
 - (void) dealloc

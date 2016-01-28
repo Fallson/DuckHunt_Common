@@ -19,4 +19,6 @@ enum PLANE_TYPE{PLANE1=0, PLANE2};
 -(void)addtoScene: (CCLayer*)layer;
 -(void)removeFromScene: (CCLayer*)layer;
 -(void)update:(ccTime)dt;
+-(void)setVisible:(bool)visible;
+-(bool)getVisible;
 @end

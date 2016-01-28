@@ -30,7 +30,6 @@ static NSString* hint_files[]={
 @implementation DHHintObj
 @synthesize hint_type = _hint_type;
 @synthesize hint_size = _hint_size;
-@synthesize visible = _visible;
 @synthesize hint = _hint;
 
 -(id)initWithWinRect:(CGRect)rect andType:(enum HINT_TYPE) type
@@ -57,13 +56,11 @@ static NSString* hint_files[]={
 -(void)addtoScene: (CCLayer*)layer
 {
     [layer addChild: self.hint];
-    self.visible = true;
 }
 
 -(void)removeFromScene: (CCLayer*)layer
 {
     [layer removeChild:self.hint];
-    self.visible = false;
 }
 
 -(void)update:(ccTime)dt
@@ -73,15 +70,18 @@ static NSString* hint_files[]={
         return;
     _accDT = 0;
     
-    if( _scale_factor )
+    if( self.hint.visible )
     {
-        self.hint.scale *= 0.8;
-        _scale_factor = false;
-    }
-    else
-    {
-        self.hint.scale *= 1.25;
-        _scale_factor = true;
+        if( _scale_factor )
+        {
+            self.hint.scale *= 0.8;
+            _scale_factor = false;
+        }
+        else
+        {
+            self.hint.scale *= 1.25;
+            _scale_factor = true;
+        }
     }
 }
 
@@ -99,6 +99,16 @@ static NSString* hint_files[]={
         // NSLog(@"not-hit: cur(%f,%f) vs pnt(%f,%f) = dist(%f)", cur.x, cur.y, pnt.x, pnt.y, dist);
         return false;
     }
+}
+
+-(void)setVisible:(bool)visible
+{
+    [self.hint setVisible:visible];
+}
+
+-(bool)getVisible
+{
+    return self.hint.visible;
 }
 
 - (void) dealloc

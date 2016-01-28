@@ -69,6 +69,7 @@
     
     enum GAME_BONUS_TYPE _gameBonus;
     int                  _gameBonusLvl;
+    int                  _fallson_bonus_idx;
     
     bool           _gameover;
 }
@@ -120,6 +121,7 @@
         
         _gameBonus = NONE_BONUS;
         _gameBonusLvl = 1;
+        _fallson_bonus_idx = 1;
         
         _gameover = false;
         
@@ -185,14 +187,17 @@
     _hintRect = _bgRect;
     
     _hintObj = [[DHHintObj alloc] initWithWinRect:_hintRect andType:TURTLE_HINT];
-    //[_hintObj addtoScene:self];
+    [_hintObj addtoScene:self];
+    [_hintObj setVisible:false];
 }
 
 -(void)initPlane
 {
     _planeRect = _bgRect;
     
-    _planeObj = [[DHPlaneObj alloc] initWithWinRect:_planeRect andType:PLANE1];
+    _planeObj = [[DHPlaneObj alloc] initWithWinRect:_planeRect andType:PLANE2];
+    [_planeObj addtoScene:self];
+    [_planeObj setVisible:false];
 }
 
 -(void)initPauseMenu
@@ -236,6 +241,12 @@
         if( TIMEMODE_TOTAL_TIME <= (int)_gameTime )
         {
             [self game_over];
+        }
+        
+        if( _gameTime >= (TIMEMODE_TOTAL_TIME*_fallson_bonus_idx/4.0) )
+        {
+            [_hintObj setVisible:true];
+            _fallson_bonus_idx++;
         }
     }
 }
@@ -441,30 +452,21 @@
     
     static bool mo7_bonus_active = true;
     if( _gameTime >= TIMEMODE_TOTAL_TIME - 20 && _gameScore >= 20000 && mo7_bonus_active)
+//    if( _gameTime >= TIMEMODE_TOTAL_TIME - 160 && _gameScore >= 0 && mo7_bonus_active)
     {
         _gameBonus = MO7_BONUS;
-        [_planeObj addtoScene:self];
+        [_planeObj setVisible:true];
         mo7_bonus_active = false;
     }
-    else if( _hintObj.visible && [_hintObj hit:location] )
+    else if( [_hintObj getVisible] && [_hintObj hit:location] )
     {
         _gameBonus = FALLSON_BONUS;
-        [_hintObj removeFromScene:self];
+        [_hintObj setVisible:false];
     }
     else if( _gameScore >= _gameBonusLvl * 4000 )
     {
         _gameBonusLvl += 2;
         _gameBonus = NORMAL_BONUS;
-    }
-    
-    static int fallson_bonus_idx = 0;
-    if( _gameTime >= (TIMEMODE_TOTAL_TIME*(fallson_bonus_idx+1)/5.0) ) //
-    {
-        if( !_hintObj.visible )
-        {
-            [_hintObj addtoScene:self];
-        }
-        fallson_bonus_idx++;
     }
 }
 
@@ -480,6 +482,8 @@
     [_introObj release];
     [_ducks release];
     [_pannel release];
+    [_hintObj release];
+    [_planeObj release];
     
 	// don't forget to call "super dealloc"
 	[super dealloc];
