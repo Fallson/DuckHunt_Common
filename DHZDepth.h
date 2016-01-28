@@ -14,6 +14,7 @@
 #define BG_SMOKE_Z   -5
 #define DUCK_Z       -4
 #define PARRAT_Z     -4
+#define PLANE_Z      -3
 #define BG_GRASS_Z   -3
 #define DOG_Z        -2
 #define BG_TREE_Z    -1
