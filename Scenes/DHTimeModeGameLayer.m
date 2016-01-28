@@ -451,8 +451,8 @@
     }
     
     static bool mo7_bonus_active = true;
-//    if( _gameTime >= TIMEMODE_TOTAL_TIME - 30 && _gameScore >= 20000 && mo7_bonus_active)
-    if( _gameTime >= TIMEMODE_TOTAL_TIME - 160 && _gameScore >= 0 && mo7_bonus_active)
+    if( _gameTime >= TIMEMODE_TOTAL_TIME - 30 && _gameScore >= 20000 && mo7_bonus_active)
+//    if( _gameTime >= TIMEMODE_TOTAL_TIME - 160 && _gameScore >= 0 && mo7_bonus_active)
     {
         _gameBonus = MO7_BONUS;
         [_planeObj setVisible:true];
