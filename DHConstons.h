@@ -11,6 +11,11 @@
 
 enum GAME_MODE{FREE_MODE=0, TIME_MODE};
 enum DEVICE_TYPE{IPHONE=0, IPAD};
+enum GAME_BONUS_TYPE{NONE_BONUS=0,
+                     FALLSON_BONUS, //it accompanies with the NONE_BONUS
+                     NORMAL_BONUS,
+                     ILOVEU_BONUS,
+                     MO7_BONUS};
 
 #define HIT_RADIUS     22
 #define HIT_RADIUS_POW (HIT_RADIUS*HIT_RADIUS)

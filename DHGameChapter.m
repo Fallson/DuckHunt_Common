@@ -236,10 +236,10 @@ static DHGameChapter *_sharedDHGameChapter=nil;
 {
     NSMutableArray* ducks = [NSMutableArray array];
     
-    enum PILOT_TYPE ptypes_candidates[] = {DUCK_EIGHT_GROUP, DUCK_CIRCLE_GROUP, DUCK_ELLIPSE_GROUP,
-        DUCK_SIN_GROUP, DUCK_ILOVEU_I, DUCK_ILOVEU_L, DUCK_ILOVEU_U};
-    //    enum PILOT_TYPE ptypes_candidates[] = {DUCK_ILOVEU_I, DUCK_ILOVEU_L, DUCK_ILOVEU_U};
-    
+    enum PILOT_TYPE ptypes_candidates[] = {DUCK_EIGHT_GROUP,
+        DUCK_CIRCLE_GROUP,
+        DUCK_ELLIPSE_GROUP,
+        DUCK_SIN_GROUP};
     enum PILOT_TYPE type = ptypes_candidates[arc4random()%(sizeof(ptypes_candidates)/sizeof(enum PILOT_TYPE))];
     
     switch(type)
@@ -262,53 +262,54 @@ static DHGameChapter *_sharedDHGameChapter=nil;
             CREATE_DUCKS2
         }
             break;
-        case DUCK_ILOVEU_I:
-        case DUCK_ILOVEU_L:
-        case DUCK_ILOVEU_U:
-        {
-            //I
-            enum DUCK_TYPE dtypes[FUNNY_CHP_DUCK_NUM];
-            enum PILOT_TYPE ptypes[FUNNY_CHP_DUCK_NUM];
-            float speeds[FUNNY_CHP_DUCK_NUM];
-            for( int i = 0; i < ILOVEU_I_DUCK_NUM; i++ )
-            {
-                dtypes[i] = BLACK_DUCK;
-                ptypes[i] = DUCK_ILOVEU_I;
-                speeds[i] = 1.0;
-            }
-            for( int i = 0; i < ILOVEU_I_DUCK_NUM; i++ )
-            {
-                CREATE_DUCKS_IN_LOOP2
-            }
-            
-            //Love
-            for( int i = 0; i < ILOVEU_L_DUCK_NUM; i++ )
-            {
-                dtypes[i] = BLACK_DUCK;
-                ptypes[i] = DUCK_ILOVEU_L;
-                speeds[i] = 1.0;
-            }
-            for( int i = 0; i < ILOVEU_L_DUCK_NUM; i++ )
-            {
-                CREATE_DUCKS_IN_LOOP2
-            }
-            
-            //U
-            for( int i = 0; i < ILOVEU_U_DUCK_NUM; i++ )
-            {
-                dtypes[i] = BLACK_DUCK;
-                ptypes[i] = DUCK_ILOVEU_U;
-                speeds[i] = 1.0;
-            }
-            for( int i = 0; i < ILOVEU_U_DUCK_NUM; i++ )
-            {
-                CREATE_DUCKS_IN_LOOP2
-            }
-        }
-            break;
-            
         default:
             break;
+    }
+    
+    return ducks;
+}
+
+-(NSMutableArray*)getILoveUBonusDucks:(CGRect)rect
+{
+    NSMutableArray* ducks = [NSMutableArray array];
+    
+    //I
+    enum DUCK_TYPE dtypes[FUNNY_CHP_DUCK_NUM];
+    enum PILOT_TYPE ptypes[FUNNY_CHP_DUCK_NUM];
+    float speeds[FUNNY_CHP_DUCK_NUM];
+    for( int i = 0; i < ILOVEU_I_DUCK_NUM; i++ )
+    {
+        dtypes[i] = BLACK_DUCK;
+        ptypes[i] = DUCK_ILOVEU_I;
+        speeds[i] = 1.0;
+    }
+    for( int i = 0; i < ILOVEU_I_DUCK_NUM; i++ )
+    {
+        CREATE_DUCKS_IN_LOOP2
+    }
+    
+    //Love
+    for( int i = 0; i < ILOVEU_L_DUCK_NUM; i++ )
+    {
+        dtypes[i] = BLACK_DUCK;
+        ptypes[i] = DUCK_ILOVEU_L;
+        speeds[i] = 1.0;
+    }
+    for( int i = 0; i < ILOVEU_L_DUCK_NUM; i++ )
+    {
+        CREATE_DUCKS_IN_LOOP2
+    }
+    
+    //U
+    for( int i = 0; i < ILOVEU_U_DUCK_NUM; i++ )
+    {
+        dtypes[i] = BLACK_DUCK;
+        ptypes[i] = DUCK_ILOVEU_U;
+        speeds[i] = 1.0;
+    }
+    for( int i = 0; i < ILOVEU_U_DUCK_NUM; i++ )
+    {
+        CREATE_DUCKS_IN_LOOP2
     }
     
     return ducks;

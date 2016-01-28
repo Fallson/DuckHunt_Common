@@ -29,6 +29,7 @@
 #import "DHScore.h"
 #pragma mark - DHTimeModeGameLayer
 
+
 @interface DHTimeModeGameLayer()
 @property (nonatomic, retain)NSMutableArray* ducks;
 @end
@@ -58,9 +59,8 @@
     GameHit        _game_hit;
     int            _gameScore;
     
-    int            _gameBonus;
-    int            _gameBonusLvl;
-    int            _fallsonBonus;
+    enum GAME_BONUS_TYPE _gameBonus;
+    int                  _gameBonusLvl;
     
     bool           _gameover;
 }
@@ -108,9 +108,8 @@
         _game_hit.parrot_hit = 0;
         _gameScore = 0;
         
-        _gameBonus = 0;
+        _gameBonus = NONE_BONUS;
         _gameBonusLvl = 1;
-        _fallsonBonus = 0;
         
         _gameover = false;
         
@@ -266,28 +265,49 @@
             _nextDuckTime = _gameTime + DUCK_FLYAWAY_TIME;
         
         NSMutableArray* new_ducks = nil;
-        if( _gameBonus )
-        {
-            _gameBonus = 0;
-            new_ducks = [[DHGameChapter sharedDHGameChapter] getBonusDucks:_duckRect];
-        }
-        else
-        {
-            _cur_chp++;
-            if( _cur_chp >= CHAPTER_MAX )
-            {
-                _cur_chp = CHAPTER_MAX-1;
-            }
-            
-            new_ducks = [[DHGameChapter sharedDHGameChapter] getChapterDucks:_cur_chp andWinRect:_duckRect];
-        }
         
-        if( _fallsonBonus == 1 )
+        switch (_gameBonus)
         {
-            [new_ducks addObjectsFromArray:[[DHGameChapter sharedDHGameChapter] getFallsonBonusDucks:_duckRect]];
-            
-            _fallsonBonus = 0;
+            case NONE_BONUS:
+            {
+                _cur_chp++;
+                if( _cur_chp >= CHAPTER_MAX )
+                {
+                    _cur_chp = CHAPTER_MAX-1;
+                }
+                new_ducks = [[DHGameChapter sharedDHGameChapter] getChapterDucks:_cur_chp andWinRect:_duckRect];
+            }
+                break;
+            case FALLSON_BONUS:
+            {
+                _cur_chp++;
+                if( _cur_chp >= CHAPTER_MAX )
+                {
+                    _cur_chp = CHAPTER_MAX-1;
+                }
+                new_ducks = [[DHGameChapter sharedDHGameChapter] getChapterDucks:_cur_chp andWinRect:_duckRect];
+                [new_ducks addObjectsFromArray:[[DHGameChapter sharedDHGameChapter] getFallsonBonusDucks:_duckRect]];
+            }
+                break;
+            case NORMAL_BONUS:
+            {
+                new_ducks = [[DHGameChapter sharedDHGameChapter] getBonusDucks:_duckRect];
+            }
+                break;
+            case ILOVEU_BONUS:
+            {
+                new_ducks = [[DHGameChapter sharedDHGameChapter] getILoveUBonusDucks:_duckRect];
+            }
+                break;
+            case MO7_BONUS:
+            {
+                new_ducks = [[DHGameChapter sharedDHGameChapter] getMO7BonusDucks:_duckRect];
+            }
+                break;
+            default:
+                break;
         }
+        _gameBonus = NONE_BONUS;
         
         if( new_ducks != nil )
         {
@@ -350,6 +370,7 @@
 
 -(void)fallsonBonus:(CGPoint)location
 {
+#if 0
     static int fallson_cnt = 0;
     static CGPoint pnt = {10.0, 10.0};
     double dist = (location.x - pnt.x)*(location.x-pnt.x) + (location.y-pnt.y)*(location.y-pnt.y);
@@ -366,6 +387,7 @@
     {
         fallson_cnt = 0;
     }
+#endif
 }
 
 -(void)touchDucks:(CGPoint)location
@@ -402,7 +424,7 @@
                 _gameScore += [DHScore GetScoreByType:duckObj.duck_type];
                 if( _gameScore > _gameBonusLvl * 2000 )
                 {
-                    _gameBonus = 1;
+                    _gameBonus = NORMAL_BONUS;
                     _gameBonusLvl += 2;
                 }
             }
